@@ -20,7 +20,7 @@ const config = {
   // If you aren't using GitHub pages, you don't need these.
   organizationName: 'eclipse-sdv-blueprints', // Usually your GitHub org/user name.
   projectName: 'blueprints-website', // Usually your repo name.
-  deploymentBranch: 'live-site', 
+  deploymentBranch: 'gh-pages', 
 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
