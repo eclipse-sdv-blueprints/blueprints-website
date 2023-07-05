@@ -14,8 +14,10 @@ const BlueprintList: BlueprintItem[] = [
     Svg: require('@site/static/img/sdv-logo-white.svg').default,
     description: (
       <>
-        Docusaurus was designed from the ground up to be easily installed and
-        used to get your website up and running quickly.
+        The truck fleet management blueprint is focused on capitalizing
+         on all the data that a fleet of trucks generates. There are also a variety 
+         of apps and services running on a fleet of vehicles that must be tracked
+         and managed. 
       </>
     ),
   },
@@ -24,18 +26,19 @@ const BlueprintList: BlueprintItem[] = [
     Svg: require('@site/static/img/sdv-logo-white.svg').default,
     description: (
       <>
-        Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go
-        ahead and move your docs into the <code>docs</code> directory.
+        Based on ROS, this blueprint orchestrate and manage the F1Tenth stacks
+         that power the miniature vehicles racing around a track. Blueprinst documentatation 
+         the besta place to get started.
       </>
     ),
   },
   {
-    title: 'Insurance',
+    title: 'Insurance and Data Spaces',
     Svg: require('@site/static/img/sdv-logo-white.svg').default,
     description: (
       <>
-        Extend or customize your website layout by reusing React. Docusaurus can
-        be extended while reusing the same header and footer.
+        A showcase for integrating Eclipse Software Defined Vehicle (SDV) and Eclipse Dataspaces for insurance applications. Enable exchange of vehicle and risk events to support risk assesment,
+         underwriting processes and customer experiences
       </>
     ),
   },

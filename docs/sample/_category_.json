@@ -1,6 +1,6 @@
 {
-  "label": "Fleet Management",
-  "position": 2,
+  "label": "Sample Docs",
+  "position": 4,
   "link": {
     "type": "generated-index",
     "description": "5 minutes to learn the most important Docusaurus concepts."

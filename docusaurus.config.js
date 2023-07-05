@@ -11,15 +11,16 @@ const config = {
   favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
-  url: 'https://sdv.eclipse.org/',
+  url: 'https://github.com',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/',
+  baseUrl: '/blueprints-website/',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
   organizationName: 'eclipse-sdv-blueprints', // Usually your GitHub org/user name.
-  projectName: 'blueprints-webiste', // Usually your repo name.
+  projectName: 'blueprints-website', // Usually your repo name.
+  deploymentBranch: 'live-site', 
 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
@@ -32,6 +33,24 @@ const config = {
     locales: ['en'],
   },
 
+  plugins:[ [
+    "docusaurus-plugin-remote-content",
+      {
+          name: "fleet-management", 
+          sourceBaseUrl: "https://raw.githubusercontent.com/eclipse-sdv-blueprints/fleet-management/main/docs", // the base url for the markdown (gets prepended to all of the documents when fetching)
+          outDir: "docs/fleet-management", // the base directory to output to.
+          documents: ["introduction.md"], // the file names to download
+      },
+  ], [
+    "docusaurus-plugin-remote-content",
+      {
+          name: "fleet-management-img", 
+          sourceBaseUrl: "https://raw.githubusercontent.com/eclipse-sdv-blueprints/fleet-management/main/docs/img", // the base url for the markdown (gets prepended to all of the documents when fetching)
+          outDir: "docs/fleet-management/img", // the base directory to output to.
+          documents: ["architecture.png"], // the file names to download
+          requestConfig: { responseType: "arraybuffer" }
+      },
+  ]],
   presets: [
     [
       'classic',

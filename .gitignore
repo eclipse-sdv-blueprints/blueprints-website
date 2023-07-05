@@ -3,6 +3,9 @@
 
 # Production
 /build
+/docs/fleet-management
+/docs/ros-racer
+
 
 # Generated files
 .docusaurus
