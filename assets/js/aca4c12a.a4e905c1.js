@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkblueprints_website=self.webpackChunkblueprints_website||[]).push([[8963],{982:e=>{e.exports=JSON.parse('{"permalink":"/blueprints-website/blog/tags/hola","page":1,"postsPerPage":10,"totalPages":1,"totalCount":1,"blogDescription":"Blog","blogTitle":"Blog"}')}}]);
