@@ -27,8 +27,8 @@ const BlueprintList: BlueprintItem[] = [
     description: (
       <>
         Based on ROS, this blueprint orchestrate and manage the F1Tenth stacks
-         that power the miniature vehicles racing around a track. Blueprinst documentatation 
-         the besta place to get started.
+         that power the miniature vehicles racing around a track. Blueprints documentation 
+         the best place to get started.
       </>
     ),
   },
