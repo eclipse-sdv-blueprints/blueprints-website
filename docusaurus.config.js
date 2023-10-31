@@ -45,9 +45,9 @@ const config = {
     "docusaurus-plugin-remote-content",
       {
           name: "fleet-management-img", 
-          sourceBaseUrl: "https://raw.githubusercontent.com/eclipse-sdv-blueprints/fleet-management/main/docs/img", // the base url for the markdown (gets prepended to all of the documents when fetching)
-          outDir: "docs/fleet-management/img", // the base directory to output to.
-          documents: ["architecture.png"], // the file names to download
+          sourceBaseUrl: "https://raw.githubusercontent.com/eclipse-sdv-blueprints/fleet-management/main/img", // the base url for the markdown (gets prepended to all of the documents when fetching)
+          outDir: "docs/img", // the base directory to output to.
+          documents: ["architecture.drawio.svg"], // the file names to download
           requestConfig: { responseType: "arraybuffer" }
       },
   ]],
