@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkblueprints_website=self.webpackChunkblueprints_website||[]).push([[1847],{4661:e=>{e.exports=JSON.parse('{"label":"hola","permalink":"/blueprints-website/blog/tags/hola","allTagsPath":"/blueprints-website/blog/tags","count":1}')}}]);
