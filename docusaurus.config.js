@@ -9,6 +9,9 @@ const config = {
   title: 'Eclipse SDV Blueprints',
   tagline: 'A collaborative initiative led by Eclipse SDV members to bring the "software defined vehicle" concepts to life. A crucial aspect of each blueprint is to ensure users can easily reproduce it on their own. This requires well-written and highly clear documentation. Users can utilize blueprints as they are, for inspiration or as a foundation to customize and meet their specific needs.',
   favicon: 'img/favicon.ico',
+  customFields: {
+    liveReload: true,
+  },
 
   // Set the production url of your site here
   url: 'https://sdv-blueprints.eclipse.dev',
@@ -33,7 +36,26 @@ const config = {
     locales: ['en'],
   },
 
-  plugins:[ [
+  plugins:[ 
+    [
+    "docusaurus-plugin-remote-content",
+      {
+        name: "companion-application",
+        sourceBaseUrl: "https://raw.githubusercontent.com/eclipse-sdv-blueprints/companion-application/main",
+        outDir: "docs/companion-application",
+        documents: ["Readme.md", "architecture-seat-adjuster.md", "interact-seat-adjuster.md", "deploy-seat-adjuster.md"],
+        requestConfig: { responseType: "arraybuffer" }
+      },
+  ], [
+    "docusaurus-plugin-remote-content",
+      {
+        name: "companion-application-img",
+        sourceBaseUrl: "https://raw.githubusercontent.com/eclipse-sdv-blueprints/companion-application/main/img",
+        outDir: "docs/companion-application/img",
+        documents: ["seatadjuster-can.png", "seatadjuster.png"],
+        requestConfig: { responseType: "arraybuffer" }
+      },
+  ],[
     "docusaurus-plugin-remote-content",
       {
           name: "fleet-management", 
@@ -95,7 +117,11 @@ const config = {
             position: 'left',
             label: 'Documentation',
           },
-          {to: '/blog', label: 'Blog', position: 'left'},
+          {
+            to: '/blog', 
+            label: 'Blog', 
+            position: 'left'
+          },
           {
             href: 'https://github.com/eclipse-sdv-blueprints',
             label: 'GitHub',

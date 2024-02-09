@@ -6,9 +6,20 @@ type BlueprintItem = {
   title: string;
   Svg: React.ComponentType<React.ComponentProps<'svg'>>;
   description: JSX.Element;
+  link: string,
 };
 
 const BlueprintList: BlueprintItem[] = [
+  {
+    title: 'Companion Application',
+    Svg: require('@site/static/img/sdv-logo-white.svg').default,
+      description: (
+        <>
+          The companion application is an example to showcase how to create a vehicle application which senses and actuates signals in the vehicle for Eclipse Leda with help of Eclipse Velocitas and Eclipse Kuksa .
+        </>
+      ),
+      link: "https://github.com/eclipse-sdv-blueprints/companion-application",
+  },
   {
     title: 'Fleet Management',
     Svg: require('@site/static/img/sdv-logo-white.svg').default,
@@ -20,6 +31,7 @@ const BlueprintList: BlueprintItem[] = [
          and managed. 
       </>
     ),
+    link: 'https://github.com/eclipse-sdv-blueprints/fleet-management',
   },
   {
     title: 'ROS Racers',
@@ -31,6 +43,7 @@ const BlueprintList: BlueprintItem[] = [
          the best place to get started.
       </>
     ),
+    link: "https://github.com/eclipse-sdv-blueprints/ros-racer",
   },
   {
     title: 'Insurance and Data Spaces',
@@ -41,18 +54,40 @@ const BlueprintList: BlueprintItem[] = [
          underwriting processes and customer experiences
       </>
     ),
+    link: "https://github.com/eclipse-sdv-blueprints/insurance",
+  },
+  {
+    title: 'Software Orchestration',
+    Svg: require('@site/static/img/sdv-logo-white.svg').default,
+    description: (
+      <>
+        This blueprint aims to showcase an example of how a proposed in-vehicle software orchestration architecture with connectivity to the cloud can help developers build and manage complex services and applications that tackle advanced scenarios like workload orchestration, scheduling, placement and resilience. 
+      </>
+    ),
+    link: "https://github.com/eclipse-sdv-blueprints/software-orchestration",
   },
 ];
 
-function Blueprint({title, Svg, description}: BlueprintItem) {
+function Blueprint({ title, Svg, description, link }: BlueprintItem) {
   return (
     <div className={clsx('col col--4')}>
-      <div className="text--center" style={{backgroundColor: '#531b4c', borderRadius: '200px' }}>
-        <Svg className={styles.blueprintSvg} role="img" />
-      </div>
-      <div className="text--center padding-horiz--md">
-        <h3>{title}</h3>
-        <p>{description}</p>
+       <div className="text--center padding-horiz--md">
+        <div
+          id="box"
+          className="text--center blueprint-box"
+          style={{
+            backgroundColor: '#531b4c',
+            borderRadius: '20px',
+            padding: '0rem',
+            transition: 'box-shadow 0.3s ease',
+          }}
+        >
+          <a href={link}>
+            <Svg className={styles.blueprintSvg} role="img" />
+          </a>
+        </div>
+        <h1>{title}</h1>
+        <h3>{description}</h3>
       </div>
     </div>
   );
