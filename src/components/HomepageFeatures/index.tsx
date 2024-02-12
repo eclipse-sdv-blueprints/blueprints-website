@@ -87,7 +87,7 @@ function Blueprint({ title, Svg, description, link }: BlueprintItem) {
           </a>
         </div>
         <h1>{title}</h1>
-        <h3>{description}</h3>
+        {description}
       </div>
     </div>
   );

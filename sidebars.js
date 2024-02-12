@@ -13,25 +13,37 @@
 
 /** @type {import('@docusaurus/plugin-content-docs').SidebarsConfig} */
 const sidebars = {
-  tutorialSidebar: [
+  overallSidebar: [
     {
       type: 'category',
-      label: 'Companion Application',
+      label: 'Blueprints Documentation',
+      link: {
+        type: 'generated-index',
+        title: 'Overview',
+        description: 'You can find the documentation for the following blueprints',
+        slug: '/overview',
+      },
       items: [
-        'companion-application/Readme',
-        'companion-application/architecture-seat-adjuster',
-        'companion-application/interact-seat-adjuster',
-        'companion-application/deploy-seat-adjuster',
-      ],
-    },
-    {
-      type: 'category',
-      label: 'Fleet Management',
-      items: [
-        'fleet-management/introduction',
-      ],
+        {
+          type: 'category',
+          label: 'Companion Application',
+          link: { type: 'doc', id: 'companion-application/Readme'},
+          items: [
+            'companion-application/architecture-seat-adjuster',
+            'companion-application/develop-seat-adjuster',
+            'companion-application/deploy-seat-adjuster',
+            'companion-application/interact-seat-adjuster',
+          ],
+        },
+        {
+          type: 'category',
+          label: 'Fleet Management',
+          link: { type: 'doc', id: 'fleet-management/introduction'},
+          items: []
+        }
+      ]
     }
-  ],
+  ]
 };
 
 module.exports = sidebars;
