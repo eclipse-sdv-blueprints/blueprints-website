@@ -22,6 +22,8 @@ jobs:
 
       - name: Install dependencies
         run: yarn install
+      - name: make empty docs folder
+        run: mkdir -p docs
       - name: Build website
         run: yarn build
 
