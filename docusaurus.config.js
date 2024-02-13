@@ -9,6 +9,9 @@ const config = {
   title: 'Eclipse SDV Blueprints',
   tagline: 'A collaborative initiative led by Eclipse SDV members to bring the "software defined vehicle" concepts to life. A crucial aspect of each blueprint is to ensure users can easily reproduce it on their own. This requires well-written and highly clear documentation. Users can utilize blueprints as they are, for inspiration or as a foundation to customize and meet their specific needs.',
   favicon: 'img/favicon.ico',
+  customFields: {
+    liveReload: true,
+  },
 
   // Set the production url of your site here
   url: 'https://sdv-blueprints.eclipse.dev',
@@ -25,6 +28,11 @@ const config = {
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
 
+  markdown: {
+    mermaid: true,
+  },
+  themes: ['@docusaurus/theme-mermaid'],
+
   // Even if you don't use internalization, you can use this field to set useful
   // metadata like html lang. For example, if your site is Chinese, you may want
   // to replace "en" with "zh-Hans".
@@ -33,7 +41,29 @@ const config = {
     locales: ['en'],
   },
 
-  plugins:[ [
+  plugins:[ 
+    [
+    "docusaurus-plugin-remote-content",
+      {
+        name: "companion-application",
+        sourceBaseUrl: "https://raw.githubusercontent.com/eclipse-sdv-blueprints/companion-application/main",
+        outDir: "docs/companion-application",
+        documents: ["Readme.md", "architecture-seat-adjuster.md", 
+        "develop-seat-adjuster.md",
+        "deploy-seat-adjuster.md",
+        "interact-seat-adjuster.md"],
+        requestConfig: { responseType: "arraybuffer" }
+      },
+  ], [
+    "docusaurus-plugin-remote-content",
+      {
+        name: "companion-application-img",
+        sourceBaseUrl: "https://raw.githubusercontent.com/eclipse-sdv-blueprints/companion-application/main/img",
+        outDir: "docs/companion-application/img",
+        documents: ["seatadjuster-can.png", "seatadjuster.png"],
+        requestConfig: { responseType: "arraybuffer" }
+      },
+  ],[
     "docusaurus-plugin-remote-content",
       {
           name: "fleet-management", 
@@ -58,17 +88,6 @@ const config = {
       ({
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
-        },
-        blog: {
-          showReadingTime: true,
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
@@ -91,11 +110,10 @@ const config = {
         items: [
           {
             type: 'docSidebar',
-            sidebarId: 'tutorialSidebar',
+            sidebarId: 'overallSidebar',
             position: 'left',
             label: 'Documentation',
           },
-          {to: '/blog', label: 'Blog', position: 'left'},
           {
             href: 'https://github.com/eclipse-sdv-blueprints',
             label: 'GitHub',
@@ -110,31 +128,18 @@ const config = {
             title: 'Docs',
             items: [
               {
-                label: 'Documentation',
-                to: '/docs/intro',
-              },
-            ],
-          },
-          {
-            title: 'Community',
-            items: [
-              {
-                label: 'Slack',
-                href: 'https://www.facebook.com/eclipse.org',
+                label: 'Companion Application',
+                to: '/docs/companion-application/',
               },
               {
-                label: 'Twitter',
-                href: 'https://twitter.com/sdveclipse',
+                label: 'Fleet Management',
+                to: '/docs/fleet-management/introduction',
               },
             ],
           },
           {
             title: 'More',
             items: [
-              {
-                label: 'Blog',
-                to: '/blog',
-              },
               {
                 label: 'GitHub',
                 href: 'https://github.com/eclipse-sdv-blueprints',

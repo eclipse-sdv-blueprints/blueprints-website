@@ -4,7 +4,9 @@
 # Production
 /build
 /docs/fleet-management
+/docs/companion-application
 /docs/ros-racer
+/docs/img
 
 
 # Generated files
