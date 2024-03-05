@@ -4,12 +4,13 @@
 <!-- blurb: shortest possible summary (one line max) -->
 <h3 align="center" style="font-weight: bold; margin-top: 20px; margin-bottom: 20px;">The source code for the eclipse sdv blueprints website.</h3>
 
+https://github.com/eclipse-sdv-blueprints/blueprints-website/issues
 
 <!-- badges: meaningful meta information (one line max), do NOT include anything immediately visible -->
 <p align="center">
 	<a href="#status"><img src="https://img.shields.io/badge/status-maintained-green.svg" alt="status: maintained"></a>
-	<a href="https://github.com/eclipse-sdv-blueprints/fleet-management/issues"><img src="https://img.shields.io/github/issues/eclipse-sdv-blueprints/fleet-management.svg" alt="issues: NA"></a>
-    <a href="#license-and-copyright"><img src="https://img.shields.io/github/license/eclipse-sdv-blueprints/fleet-management.svg"></a>
+	<a href="https://github.com/eclipse-sdv-blueprints/blueprints-website/issues"><img src="https://img.shields.io/github/issues/eclipse-sdv-blueprints/blueprints-website.svg" alt="issues: NA"></a>
+    <a href="#license-and-copyright"><img src="https://img.shields.io/github/license/eclipse-sdv-blueprints/blueprints-website.svg"></a>
 </p>
 
 <!-- quick links: local links (one line max) -->
