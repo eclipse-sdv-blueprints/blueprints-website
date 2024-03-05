@@ -39,7 +39,10 @@ Checkout the project and:
 ```sh
   cd blueprints-website
   yarn install
-  npx docusaurus start
+  yarn start
+
+  OR:
+    npx docusaurus start
 ```
 <br>
 
