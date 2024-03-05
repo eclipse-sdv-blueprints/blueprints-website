@@ -4,8 +4,6 @@
 <!-- blurb: shortest possible summary (one line max) -->
 <h3 align="center" style="font-weight: bold; margin-top: 20px; margin-bottom: 20px;">The source code for the eclipse sdv blueprints website.</h3>
 
-https://github.com/eclipse-sdv-blueprints/blueprints-website/issues
-
 <!-- badges: meaningful meta information (one line max), do NOT include anything immediately visible -->
 <p align="center">
 	<a href="#status"><img src="https://img.shields.io/badge/status-maintained-green.svg" alt="status: maintained"></a>
