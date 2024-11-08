@@ -32,7 +32,7 @@ const sidebars = {
             'companion-application/architecture-seat-adjuster',
             'companion-application/develop-seat-adjuster',
             'companion-application/deploy-seat-adjuster',
-            'companion-application/interact-seat-adjuster',
+            'companion-application/troubleshooting',
           ],
         },
         {
