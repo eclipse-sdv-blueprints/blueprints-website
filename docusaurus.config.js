@@ -51,7 +51,8 @@ const config = {
         documents: ["Readme.md", "architecture-seat-adjuster.md", 
         "develop-seat-adjuster.md",
         "deploy-seat-adjuster.md",
-        "interact-seat-adjuster.md"],
+        "deploy-seat-adjuster.md",
+        "troubleshooting.md"],
         requestConfig: { responseType: "arraybuffer" }
       },
   ], [
