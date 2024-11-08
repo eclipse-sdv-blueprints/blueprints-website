@@ -13,7 +13,35 @@
  }
 
 .blueprintSvg {
-  height: 200px;
+  height: 100px;
   width: 200px;
   padding: 1.5rem;
 }
+
+
+.blueprintBox {
+  background-color: #452062;
+  border-radius: 10px ;
+  transition: 'box-shadow 0.3s ease';
+}
+
+.blueprintLink {
+  color: #452062;
+  text-decoration: none;
+}
+
+.blueprintTitle {
+ color: #13a4eb;
+  margin-top: -1.5em;
+  font-size: 1.5em;
+  font-weight: bold;
+  line-height: 1em;
+}
+
+
+.blueprintLabel {
+  color: #fff;
+   font-size: 1em;
+   line-height: 1em;
+   padding-bottom: 1em;
+ }

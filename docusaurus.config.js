@@ -102,10 +102,10 @@ const config = {
       // Replace with your project's social card
       image: 'img/sdvblueprints-social-card.jpg',
       navbar: {
-        title: 'Eclipse SDV Blueprints',
+        title: '',
         logo: {
           alt: 'Eclipse SDV Blueprints',
-          src: 'img/sdv-logo-color.svg',
+          src: 'logos/eclipsesdvblueprint_transparent.png',
         },
         items: [
           {

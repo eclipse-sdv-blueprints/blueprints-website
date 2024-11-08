@@ -12,7 +12,7 @@ function HomepageHeader() {
   return (
     <header className={clsx('hero hero--primary', styles.heroBanner)}>
       <div className="container">
-        <h1 className="hero__title" style={{ color: '#fff'}}>{siteConfig.title}</h1>
+        <img src="/logos/eclipsesdvblueprint_dark_transparent.png" alt="Eclipse SDV Logo" style={{ width: '400px'}} />
         <p className="hero__subtitle" style={{ color: '#fff'}}>{siteConfig.tagline}</p>
         <div className={styles.buttons}>
           <Link
