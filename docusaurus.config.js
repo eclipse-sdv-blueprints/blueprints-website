@@ -61,7 +61,7 @@ const config = {
         name: "companion-application-img",
         sourceBaseUrl: "https://raw.githubusercontent.com/eclipse-sdv-blueprints/companion-application/main/img",
         outDir: "docs/companion-application/img",
-        documents: ["seatadjuster-can.png", "seatadjuster.png"],
+        documents: ["seatadjuster-can.png", "seatadjuster.png", "create-release-tag.png", "action_general_workflow_permissions.png"],
         requestConfig: { responseType: "arraybuffer" }
       },
   ],[
