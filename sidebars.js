@@ -41,6 +41,16 @@ const sidebars = {
           label: 'Fleet Management',
           link: { type: 'doc', id: 'fleet-management/introduction'},
           items: []
+        },
+        {
+          type: 'category',
+          label: 'Service to Signal',
+          link: { type: 'doc', id: 'service-to-signal/README'},
+          items: [
+            'service-to-signal/components/horn-service-kuksa/README',
+            'service-to-signal/components/horn-client/README',
+            'service-to-signal/components/actuator-provider/README'
+          ]
         }
       ]
     }
