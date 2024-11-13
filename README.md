@@ -37,11 +37,15 @@ The Eclipse SDV Blueprints project hosts a collection of blueprints that demonst
 Checkout the project and:
 ```sh
   cd blueprints-website
+  mkdir docs
   yarn install
   yarn start
-
+```
   OR:
-    npx docusaurus start
+```sh
+  cd blueprints-website
+  mkdir docs
+  npx docusaurus start
 ```
 <br>
 

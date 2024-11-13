@@ -65,7 +65,7 @@ const config = {
         documents: ["seatadjuster-can.png", "seatadjuster.png", "create-release-tag.png", "action_general_workflow_permissions.png"],
         requestConfig: { responseType: "arraybuffer" }
       },
-  ],[
+  ], [
     "docusaurus-plugin-remote-content",
       {
           name: "fleet-management", 
@@ -81,6 +81,51 @@ const config = {
           outDir: "docs/img", // the base directory to output to.
           documents: ["architecture.drawio.svg"], // the file names to download
           requestConfig: { responseType: "arraybuffer" }
+      },
+  ], [
+      "docusaurus-plugin-remote-content",
+        {
+          name: "signal-to-service-horn-service",
+          sourceBaseUrl: "https://raw.githubusercontent.com/eclipse-sdv-blueprints/service-to-signal/main/components/horn-service-kuksa",
+          outDir: "docs/service-to-signal/components/horn-service-kuksa",
+          documents: ["README.md"],
+          requestConfig: { responseType: "arraybuffer" }
+        },
+  ], [
+        "docusaurus-plugin-remote-content",
+          {
+            name: "signal-to-service-horn-client",
+            sourceBaseUrl: "https://raw.githubusercontent.com/eclipse-sdv-blueprints/service-to-signal/main/components/horn-client",
+            outDir: "docs/service-to-signal/components/horn-client",
+            documents: ["README.md"],
+            requestConfig: { responseType: "arraybuffer" }
+          },
+  ], [
+        "docusaurus-plugin-remote-content",
+          {
+            name: "signal-to-service-actuator-provider",
+            sourceBaseUrl: "https://raw.githubusercontent.com/eclipse-sdv-blueprints/service-to-signal/main/components/actuator-provider",
+            outDir: "docs/service-to-signal/components/actuator-provider",
+            documents: ["README.md"],
+            requestConfig: { responseType: "arraybuffer" }
+          },
+  ], [
+    "docusaurus-plugin-remote-content",
+      {
+        name: "signal-to-service",
+        sourceBaseUrl: "https://raw.githubusercontent.com/eclipse-sdv-blueprints/service-to-signal/main",
+        outDir: "docs/service-to-signal",
+        documents: ["README.md"],
+        requestConfig: { responseType: "arraybuffer" }
+      },
+  ], [
+    "docusaurus-plugin-remote-content",
+      {
+        name: "signal-to-service-img",
+        sourceBaseUrl: "https://raw.githubusercontent.com/eclipse-sdv-blueprints/service-to-signal/main/img",
+        outDir: "docs/service-to-signal/img",
+        documents: ["overview.drawio.png"],
+        requestConfig: { responseType: "arraybuffer" }
       },
   ]],
   presets: [
@@ -132,6 +177,10 @@ const config = {
               {
                 label: 'Companion Application',
                 to: '/docs/companion-application/',
+              },
+              {
+                label: 'Service to Signal',
+                to: '/docs/service-to-signal/',
               },
               {
                 label: 'Fleet Management',
