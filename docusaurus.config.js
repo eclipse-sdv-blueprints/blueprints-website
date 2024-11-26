@@ -192,13 +192,28 @@ const config = {
             title: 'More',
             items: [
               {
-                label: 'GitHub',
+                label: 'SDV Blueprints on GitHub',
                 href: 'https://github.com/eclipse-sdv-blueprints',
+              },              {
+                label: 'Eclipse Foundation',
+                href: 'https://www.eclipse.org',
               },
+              {
+                label: 'Privacy policy',
+                href: 'ttps://www.eclipse.org/legal/privacy.php',
+              },
+              {
+                label: 'Website terms of use',
+                href: 'https://www.eclipse.org/legal/termsofuse.php',
+              },
+              {
+                label: 'Legal',
+                href: 'https://www.eclipse.org/legal',
+              }
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} Eclipse Foundation. All Rights Reserved.`,
+        copyright: `<a style="color:#fff;text-decoration:none;" href="https://www.eclipse.org/legal/copyright.php">Copyright © ${new Date().getFullYear()} Eclipse Foundation. All Rights Reserved.</a>`,
       },
       prism: {
         theme: lightCodeTheme,
