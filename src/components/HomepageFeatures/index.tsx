@@ -76,6 +76,16 @@ const BlueprintList: BlueprintItem[] = [
     ),
     link: "https://github.com/eclipse-sdv-blueprints/ros-racer",
   },
+  {
+    title: 'E2E Demo Blueprint',
+    Svg: require('@site/static/logos/eclipsesdvblueprint_white_title.svg').default,
+    description: (
+      <>
+        An end-to-end Vehicle E/E Architecture demo combining Fleet Management with a MotorBike Blinker use case using physical Arduino ECUs, CAN bus and Eclipse Ankaios + Kuksa.
+      </>
+    ),
+    link: "https://github.com/chheis/eclipse-sdv-e2e-demo-blueprint",
+  },
 ];
 
 function Blueprint({ title, Svg, description, link }: BlueprintItem) {

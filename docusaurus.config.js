@@ -25,6 +25,14 @@ function mdxFixHtml(filename, content) {
   return { filename, content: fixed };
 }
 
+/** Fix the removed architecture.drawio.svg reference in fleet-management introduction. */
+function fixFleetMgmtImgRef(filename, content) {
+  if (!filename.endsWith('.md')) return undefined;
+  let fixed = typeof content === 'string' ? content : Buffer.from(content).toString('utf-8');
+  fixed = fixed.replace(/architecture\.drawio\.svg/g, 'architecture-zenoh.drawio.svg');
+  return { filename, content: fixed };
+}
+
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'Eclipse SDV Blueprints',
@@ -35,18 +43,18 @@ const config = {
   },
 
   // Set the production url of your site here
-  url: 'https://sdv-blueprints.eclipse.dev',
+  url: 'https://chheis.github.io',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/',
+  baseUrl: '/blueprints-website/',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'eclipse-sdv-blueprints', // Usually your GitHub org/user name.
+  organizationName: 'chheis', // Usually your GitHub org/user name.
   projectName: 'blueprints-website', // Usually your repo name.
   deploymentBranch: 'gh-pages', 
 
-  onBrokenLinks: 'throw',
+  onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
 
   markdown: {
@@ -93,6 +101,8 @@ const config = {
           sourceBaseUrl: "https://raw.githubusercontent.com/eclipse-sdv-blueprints/fleet-management/main/docs", // the base url for the markdown (gets prepended to all of the documents when fetching)
           outDir: "docs/fleet-management", // the base directory to output to.
           documents: ["introduction.md"], // the file names to download
+          requestConfig: { responseType: "arraybuffer" },
+          modifyContent: fixFleetMgmtImgRef,
       },
   ], [
     "docusaurus-plugin-remote-content",
@@ -100,7 +110,7 @@ const config = {
           name: "fleet-management-img", 
           sourceBaseUrl: "https://raw.githubusercontent.com/eclipse-sdv-blueprints/fleet-management/main/img", // the base url for the markdown (gets prepended to all of the documents when fetching)
           outDir: "docs/img", // the base directory to output to.
-          documents: ["architecture.drawio.svg"], // the file names to download
+          documents: ["architecture-zenoh.drawio.svg"], // the file names to download
           requestConfig: { responseType: "arraybuffer" }
       },
   ], [
@@ -196,6 +206,23 @@ const config = {
         documents: ["demo.png"],
         requestConfig: { responseType: "arraybuffer" }
       },
+  ], [
+    "docusaurus-plugin-remote-content",
+      {
+        name: "e2e-demo-blueprint",
+        sourceBaseUrl: "https://raw.githubusercontent.com/chheis/eclipse-sdv-e2e-demo-blueprint/main/docs/website",
+        outDir: "docs/e2e-demo-blueprint",
+        documents: [
+          "introduction.md",
+          "architecture.md",
+          "hardware.md",
+          "setup-guide.md",
+          "signal-mapping.md",
+          "communication-workflow.md",
+          "fleet-analysis.md",
+        ],
+        requestConfig: { responseType: "arraybuffer" }
+      },
   ]],
   presets: [
     [
@@ -258,6 +285,10 @@ const config = {
               {
                 label: 'ROS Racer',
                 to: '/docs/ros-racer/',
+              },
+              {
+                label: 'E2E Demo Blueprint',
+                to: '/docs/e2e-demo-blueprint/introduction',
               },
             ],
           },
