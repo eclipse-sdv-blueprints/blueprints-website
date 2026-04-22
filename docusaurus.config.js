@@ -14,14 +14,17 @@ function mdxFixHtml(filename, content) {
   fixed = fixed.replace(/\s+style="[^"]*"/gi, '');
   // Ensure blank line before closing </details> so MDX separates HTML from markdown
   fixed = fixed.replace(/([^\n])\n<\/details>/g, '$1\n\n</details>');
-  // Fix repo-relative links that don't match the docs site structure
+  // Fix repo-relative links that don't match the docs site structure.
+  // Cross-plugin files can't be resolved by the markdown link checker, so we use
+  // URL-format paths (no .md) that will resolve correctly at runtime.
   // Markdown-style links
-  fixed = fixed.replace(/\(docs\/quickstart\.md(#[^)]*)?(\))/g, '(./quickstart$1$2');
-  fixed = fixed.replace(/\(\.\.\/demo\/README\.md\)/g, '(./demo/README)');
+  fixed = fixed.replace(/\(docs\/quickstart\.md(#[^)]*)?\)/g, '(./quickstart$1)');
+  fixed = fixed.replace(/\(\.\.\/demo\/README\.md\)/g, '(./demo/)');
+  fixed = fixed.replace(/\(demo\/README\.md\)/g, '(./demo/)');
   fixed = fixed.replace(/\(LICENSE\)/g, '(https://github.com/eclipse-sdv-blueprints/ros-racer/blob/main/LICENSE)');
-  // HTML href attributes
+  // HTML href attributes (use URL format without .md since <a> tags aren't processed by markdown)
   fixed = fixed.replace(/href="docs\/quickstart\.md(#[^"]*)?"/g, 'href="./quickstart$1"');
-  fixed = fixed.replace(/href="\.\.\/demo\/README\.md"/g, 'href="./demo/README"');
+  fixed = fixed.replace(/href="(\.\.\/)?demo\/README\.md"/g, 'href="./demo/"');
   return { filename, content: fixed };
 }
 
@@ -30,6 +33,17 @@ function fixFleetMgmtImgRef(filename, content) {
   if (!filename.endsWith('.md')) return undefined;
   let fixed = typeof content === 'string' ? content : Buffer.from(content).toString('utf-8');
   fixed = fixed.replace(/architecture\.drawio\.svg/g, 'architecture-zenoh.drawio.svg');
+  return { filename, content: fixed };
+}
+
+/** Rewrite links to companion-application pages not pulled into the website. */
+function fixCompanionAppLinks(filename, content) {
+  if (!filename.endsWith('.md')) return undefined;
+  let fixed = typeof content === 'string' ? content : Buffer.from(content).toString('utf-8');
+  fixed = fixed.replace(
+    /\(\.\/modeling-the-companion-application\.md\)/g,
+    '(https://github.com/eclipse-sdv-blueprints/companion-application/blob/main/modeling-the-companion-application.md)'
+  );
   return { filename, content: fixed };
 }
 
@@ -83,7 +97,8 @@ const config = {
         "deploy-seat-adjuster.md",
         "interact-seat-adjuster.md",
         "troubleshooting.md"],
-        requestConfig: { responseType: "arraybuffer" }
+        requestConfig: { responseType: "arraybuffer" },
+        modifyContent: fixCompanionAppLinks,
       },
   ], [
     "docusaurus-plugin-remote-content",
@@ -108,9 +123,9 @@ const config = {
     "docusaurus-plugin-remote-content",
       {
           name: "fleet-management-img", 
-          sourceBaseUrl: "https://raw.githubusercontent.com/eclipse-sdv-blueprints/fleet-management/main/img", // the base url for the markdown (gets prepended to all of the documents when fetching)
-          outDir: "docs/img", // the base directory to output to.
-          documents: ["architecture-zenoh.drawio.svg"], // the file names to download
+          sourceBaseUrl: "https://raw.githubusercontent.com/eclipse-sdv-blueprints/fleet-management/main/img",
+          outDir: "docs/img",
+          documents: ["architecture-zenoh.drawio.svg"],
           requestConfig: { responseType: "arraybuffer" }
       },
   ], [
