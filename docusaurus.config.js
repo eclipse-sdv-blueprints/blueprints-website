@@ -229,6 +229,10 @@ const config = {
           "signal-mapping.md",
           "communication-workflow.md",
           "fleet-analysis.md",
+          "device-joystick-ecu.md",
+          "device-led-ecu.md",
+          "device-rfid-ecu.md",
+          "device-threadx-ecu.md",
         ],
         requestConfig: { responseType: "arraybuffer" }
       },

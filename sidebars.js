@@ -73,6 +73,16 @@ const sidebars = {
             'e2e-demo-blueprint/signal-mapping',
             'e2e-demo-blueprint/communication-workflow',
             'e2e-demo-blueprint/fleet-analysis',
+            {
+              type: 'category',
+              label: 'Device Guides',
+              items: [
+                'e2e-demo-blueprint/device-joystick-ecu',
+                'e2e-demo-blueprint/device-led-ecu',
+                'e2e-demo-blueprint/device-rfid-ecu',
+                'e2e-demo-blueprint/device-threadx-ecu',
+              ]
+            },
           ]
         }
       ]
