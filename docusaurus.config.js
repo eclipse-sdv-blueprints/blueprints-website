@@ -15,24 +15,27 @@ function mdxFixHtml(filename, content) {
   // Ensure blank line before closing </details> so MDX separates HTML from markdown
   fixed = fixed.replace(/([^\n])\n<\/details>/g, '$1\n\n</details>');
   // Fix repo-relative links that don't match the docs site structure.
-  // Cross-plugin files can't be resolved by the markdown link checker, so we use
-  // URL-format paths (no .md) that will resolve correctly at runtime.
-  // Markdown-style links
-  fixed = fixed.replace(/\(docs\/quickstart\.md(#[^)]*)?\)/g, '(./quickstart$1)');
-  fixed = fixed.replace(/\(\.\.\/demo\/README\.md\)/g, '(./demo/)');
-  fixed = fixed.replace(/\(demo\/README\.md\)/g, '(./demo/)');
+  // Convert cross-plugin markdown links to HTML <a> tags so the markdown link
+  // checker does not flag them (remote-content files aren't available at check time).
+  fixed = fixed.replace(/\[([^\]]*)\]\(docs\/quickstart\.md(#[^)]*)?\)/g, '<a href="./quickstart$2">$1</a>');
+  fixed = fixed.replace(/\[([^\]]*)\]\((\.\.\/)?(demo\/README\.md)\)/g, '<a href="./demo/">$1</a>');
   fixed = fixed.replace(/\(LICENSE\)/g, '(https://github.com/eclipse-sdv-blueprints/ros-racer/blob/main/LICENSE)');
-  // HTML href attributes (use URL format without .md since <a> tags aren't processed by markdown)
+  // HTML href attributes
   fixed = fixed.replace(/href="docs\/quickstart\.md(#[^"]*)?"/g, 'href="./quickstart$1"');
   fixed = fixed.replace(/href="(\.\.\/)?demo\/README\.md"/g, 'href="./demo/"');
   return { filename, content: fixed };
 }
 
-/** Fix the removed architecture.drawio.svg reference in fleet-management introduction. */
+/** Fix the removed architecture.drawio.svg reference in fleet-management introduction.
+ *  Uses HTML <img> with raw GitHub URL to avoid Docusaurus image-processing warnings
+ *  on drawio SVGs (they contain embedded XML that Docusaurus can't parse). */
 function fixFleetMgmtImgRef(filename, content) {
   if (!filename.endsWith('.md')) return undefined;
   let fixed = typeof content === 'string' ? content : Buffer.from(content).toString('utf-8');
-  fixed = fixed.replace(/architecture\.drawio\.svg/g, 'architecture-zenoh.drawio.svg');
+  fixed = fixed.replace(
+    /!\[([^\]]*)\]\(\.\.\/img\/architecture\.drawio\.svg\)/g,
+    '<img src="https://raw.githubusercontent.com/eclipse-sdv-blueprints/fleet-management/main/img/architecture-zenoh.drawio.svg" alt="$1" />'
+  );
   return { filename, content: fixed };
 }
 
@@ -118,15 +121,6 @@ const config = {
           documents: ["introduction.md"], // the file names to download
           requestConfig: { responseType: "arraybuffer" },
           modifyContent: fixFleetMgmtImgRef,
-      },
-  ], [
-    "docusaurus-plugin-remote-content",
-      {
-          name: "fleet-management-img", 
-          sourceBaseUrl: "https://raw.githubusercontent.com/eclipse-sdv-blueprints/fleet-management/main/img",
-          outDir: "docs/img",
-          documents: ["architecture-zenoh.drawio.svg"],
-          requestConfig: { responseType: "arraybuffer" }
       },
   ], [
       "docusaurus-plugin-remote-content",
