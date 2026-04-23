@@ -44,5 +44,11 @@
   },
   "engines": {
     "node": ">=16.14"
+  },
+  "overrides": {
+    "cytoscape": "3.30.4"
+  },
+  "resolutions": {
+    "cytoscape": "3.30.4"
   }
 }

@@ -61,6 +61,29 @@ const sidebars = {
             'ros-racer/visualizations',
             'ros-racer/demo/README',
           ]
+        },
+        {
+          type: 'category',
+          label: 'E2E Demo Blueprint',
+          link: { type: 'doc', id: 'e2e-demo-blueprint/introduction'},
+          items: [
+            'e2e-demo-blueprint/architecture',
+            'e2e-demo-blueprint/hardware',
+            'e2e-demo-blueprint/setup-guide',
+            'e2e-demo-blueprint/signal-mapping',
+            'e2e-demo-blueprint/communication-workflow',
+            'e2e-demo-blueprint/fleet-analysis',
+            {
+              type: 'category',
+              label: 'Device Guides',
+              items: [
+                'e2e-demo-blueprint/device-joystick-ecu',
+                'e2e-demo-blueprint/device-led-ecu',
+                'e2e-demo-blueprint/device-rfid-ecu',
+                'e2e-demo-blueprint/device-threadx-ecu',
+              ]
+            },
+          ]
         }
       ]
     }

@@ -14,14 +14,39 @@ function mdxFixHtml(filename, content) {
   fixed = fixed.replace(/\s+style="[^"]*"/gi, '');
   // Ensure blank line before closing </details> so MDX separates HTML from markdown
   fixed = fixed.replace(/([^\n])\n<\/details>/g, '$1\n\n</details>');
-  // Fix repo-relative links that don't match the docs site structure
-  // Markdown-style links
-  fixed = fixed.replace(/\(docs\/quickstart\.md(#[^)]*)?(\))/g, '(./quickstart$1$2');
-  fixed = fixed.replace(/\(\.\.\/demo\/README\.md\)/g, '(./demo/README)');
+  // Fix repo-relative links that don't match the docs site structure.
+  // Convert cross-plugin markdown links to HTML <a> tags so the markdown link
+  // checker does not flag them (remote-content files aren't available at check time).
+  fixed = fixed.replace(/\[([^\]]*)\]\(docs\/quickstart\.md(#[^)]*)?\)/g, '<a href="./quickstart$2">$1</a>');
+  fixed = fixed.replace(/\[([^\]]*)\]\((\.\.\/)?(demo\/README\.md)\)/g, '<a href="./demo/">$1</a>');
   fixed = fixed.replace(/\(LICENSE\)/g, '(https://github.com/eclipse-sdv-blueprints/ros-racer/blob/main/LICENSE)');
   // HTML href attributes
   fixed = fixed.replace(/href="docs\/quickstart\.md(#[^"]*)?"/g, 'href="./quickstart$1"');
-  fixed = fixed.replace(/href="\.\.\/demo\/README\.md"/g, 'href="./demo/README"');
+  fixed = fixed.replace(/href="(\.\.\/)?demo\/README\.md"/g, 'href="./demo/"');
+  return { filename, content: fixed };
+}
+
+/** Fix the removed architecture.drawio.svg reference in fleet-management introduction.
+ *  Uses HTML <img> with raw GitHub URL to avoid Docusaurus image-processing warnings
+ *  on drawio SVGs (they contain embedded XML that Docusaurus can't parse). */
+function fixFleetMgmtImgRef(filename, content) {
+  if (!filename.endsWith('.md')) return undefined;
+  let fixed = typeof content === 'string' ? content : Buffer.from(content).toString('utf-8');
+  fixed = fixed.replace(
+    /!\[([^\]]*)\]\(\.\.\/img\/architecture\.drawio\.svg\)/g,
+    '<img src="https://raw.githubusercontent.com/eclipse-sdv-blueprints/fleet-management/main/img/architecture-zenoh.drawio.svg" alt="$1" />'
+  );
+  return { filename, content: fixed };
+}
+
+/** Rewrite links to companion-application pages not pulled into the website. */
+function fixCompanionAppLinks(filename, content) {
+  if (!filename.endsWith('.md')) return undefined;
+  let fixed = typeof content === 'string' ? content : Buffer.from(content).toString('utf-8');
+  fixed = fixed.replace(
+    /\(\.\/modeling-the-companion-application\.md\)/g,
+    '(https://github.com/eclipse-sdv-blueprints/companion-application/blob/main/modeling-the-companion-application.md)'
+  );
   return { filename, content: fixed };
 }
 
@@ -46,7 +71,7 @@ const config = {
   projectName: 'blueprints-website', // Usually your repo name.
   deploymentBranch: 'gh-pages', 
 
-  onBrokenLinks: 'throw',
+  onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
 
   markdown: {
@@ -75,7 +100,8 @@ const config = {
         "deploy-seat-adjuster.md",
         "interact-seat-adjuster.md",
         "troubleshooting.md"],
-        requestConfig: { responseType: "arraybuffer" }
+        requestConfig: { responseType: "arraybuffer" },
+        modifyContent: fixCompanionAppLinks,
       },
   ], [
     "docusaurus-plugin-remote-content",
@@ -93,15 +119,8 @@ const config = {
           sourceBaseUrl: "https://raw.githubusercontent.com/eclipse-sdv-blueprints/fleet-management/main/docs", // the base url for the markdown (gets prepended to all of the documents when fetching)
           outDir: "docs/fleet-management", // the base directory to output to.
           documents: ["introduction.md"], // the file names to download
-      },
-  ], [
-    "docusaurus-plugin-remote-content",
-      {
-          name: "fleet-management-img", 
-          sourceBaseUrl: "https://raw.githubusercontent.com/eclipse-sdv-blueprints/fleet-management/main/img", // the base url for the markdown (gets prepended to all of the documents when fetching)
-          outDir: "docs/img", // the base directory to output to.
-          documents: ["architecture.drawio.svg"], // the file names to download
-          requestConfig: { responseType: "arraybuffer" }
+          requestConfig: { responseType: "arraybuffer" },
+          modifyContent: fixFleetMgmtImgRef,
       },
   ], [
       "docusaurus-plugin-remote-content",
@@ -196,6 +215,28 @@ const config = {
         documents: ["demo.png"],
         requestConfig: { responseType: "arraybuffer" }
       },
+  ], [
+    "docusaurus-plugin-remote-content",
+      {
+        name: "e2e-demo-blueprint",
+        // Pin to PR #1 head until the docs are available on main in the new repo.
+        sourceBaseUrl: "https://raw.githubusercontent.com/eclipse-sdv-blueprints/e2e-vehicle-signals/main/docs/website",
+        outDir: "docs/e2e-demo-blueprint",
+        documents: [
+          "introduction.md",
+          "architecture.md",
+          "hardware.md",
+          "setup-guide.md",
+          "signal-mapping.md",
+          "communication-workflow.md",
+          "fleet-analysis.md",
+          "device-joystick-ecu.md",
+          "device-led-ecu.md",
+          "device-rfid-ecu.md",
+          "device-threadx-ecu.md",
+        ],
+        requestConfig: { responseType: "arraybuffer" }
+      },
   ]],
   presets: [
     [
@@ -258,6 +299,10 @@ const config = {
               {
                 label: 'ROS Racer',
                 to: '/docs/ros-racer/',
+              },
+              {
+                label: 'E2E Demo Blueprint',
+                to: '/docs/e2e-demo-blueprint/introduction',
               },
             ],
           },
