@@ -84,7 +84,7 @@ const BlueprintList: BlueprintItem[] = [
         An end-to-end Vehicle E/E Architecture demo combining Fleet Management with a MotorBike Blinker use case using physical Arduino ECUs, CAN bus and Eclipse Ankaios + Kuksa.
       </>
     ),
-    link: "https://github.com/chheis/eclipse-sdv-e2e-demo-blueprint",
+    link: "https://github.com/eclipse-sdv-blueprints/e2e-vehicle-signals",
   },
 ];
 

@@ -219,7 +219,8 @@ const config = {
     "docusaurus-plugin-remote-content",
       {
         name: "e2e-demo-blueprint",
-        sourceBaseUrl: "https://raw.githubusercontent.com/chheis/eclipse-sdv-e2e-demo-blueprint/main/docs/website",
+        // Pin to PR #1 head until the docs are available on main in the new repo.
+        sourceBaseUrl: "https://raw.githubusercontent.com/eclipse-sdv-blueprints/e2e-vehicle-signals/main/docs/website",
         outDir: "docs/e2e-demo-blueprint",
         documents: [
           "introduction.md",
