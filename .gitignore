@@ -3,11 +3,7 @@
 
 # Production
 /build
-/docs/fleet-management
-/docs/companion-application
-/docs/service-to-signal
-/docs/ros-racer
-/docs/img
+/docs
 
 
 # Generated files
