@@ -230,10 +230,13 @@ const config = {
           "signal-mapping.md",
           "communication-workflow.md",
           "fleet-analysis.md",
+          "bridge-gamecontroller.md",
+          "bridge-mqtt-grpc.md",
           "device-joystick-ecu.md",
           "device-led-ecu.md",
           "device-rfid-ecu.md",
           "device-threadx-ecu.md",
+          "device-ivi-livi.md",
         ],
         requestConfig: { responseType: "arraybuffer" }
       },

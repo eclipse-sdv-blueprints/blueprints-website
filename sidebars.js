@@ -75,12 +75,21 @@ const sidebars = {
             'e2e-demo-blueprint/fleet-analysis',
             {
               type: 'category',
+              label: 'Bridges',
+              items: [
+                'e2e-demo-blueprint/bridge-gamecontroller',
+                'e2e-demo-blueprint/bridge-mqtt-grpc',
+              ]
+            },
+            {
+              type: 'category',
               label: 'Device Guides',
               items: [
                 'e2e-demo-blueprint/device-joystick-ecu',
                 'e2e-demo-blueprint/device-led-ecu',
                 'e2e-demo-blueprint/device-rfid-ecu',
                 'e2e-demo-blueprint/device-threadx-ecu',
+                'e2e-demo-blueprint/device-ivi-livi',
               ]
             },
           ]
