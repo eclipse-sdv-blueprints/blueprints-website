@@ -1,0 +1,126 @@
+name: PR Preview
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize, closed]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: pr-preview-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  preview:
+    if: github.event.action != 'closed'
+    name: Build and Deploy PR Preview
+    runs-on: ubuntu-latest
+    env:
+      PREVIEW_PATH: pr-preview/pr-${{ github.event.pull_request.number }}
+      PREVIEW_URL: https://eclipse-sdv-blueprints.github.io/blueprints-website/pr-preview/pr-${{ github.event.pull_request.number }}/
+      DOCUSAURUS_URL: https://eclipse-sdv-blueprints.github.io
+      DOCUSAURUS_BASE_URL: /blueprints-website/pr-preview/pr-${{ github.event.pull_request.number }}/
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: yarn
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Build preview website
+        run: yarn build
+
+      - name: Deploy preview to GitHub Pages branch
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build
+          destination_dir: ${{ env.PREVIEW_PATH }}
+          keep_files: true
+
+      - name: Comment preview URL on PR
+        uses: actions/github-script@v7
+        env:
+          PREVIEW_URL: ${{ env.PREVIEW_URL }}
+        with:
+          script: |
+            const body = `Preview is ready: ${process.env.PREVIEW_URL}`;
+            const { owner, repo } = context.repo;
+            const issue_number = context.issue.number;
+            const marker = '<!-- pr-preview-link -->';
+            const taggedBody = `${marker}\n${body}`;
+
+            const comments = await github.paginate(github.rest.issues.listComments, {
+              owner,
+              repo,
+              issue_number,
+              per_page: 100,
+            });
+
+            const existing = comments.find(
+              (c) => c.user?.type === 'Bot' && c.body?.includes(marker)
+            );
+
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner,
+                repo,
+                comment_id: existing.id,
+                body: taggedBody,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner,
+                repo,
+                issue_number,
+                body: taggedBody,
+              });
+            }
+
+  cleanup:
+    if: github.event.action == 'closed'
+    name: Cleanup PR Preview
+    runs-on: ubuntu-latest
+    env:
+      PREVIEW_PATH: pr-preview/pr-${{ github.event.pull_request.number }}
+    steps:
+      - name: Checkout gh-pages branch
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          fetch-depth: 0
+
+      - name: Remove preview folder from gh-pages
+        run: |
+          if [ -d "${PREVIEW_PATH}" ]; then
+            rm -rf "${PREVIEW_PATH}"
+            echo "Removed ${PREVIEW_PATH}"
+          else
+            echo "Nothing to remove for ${PREVIEW_PATH}"
+          fi
+
+          if [ -d "pr-preview" ] && [ -z "$(ls -A pr-preview)" ]; then
+            rmdir pr-preview
+            echo "Removed empty pr-preview directory"
+          fi
+
+      - name: Commit and push cleanup changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          if [ -n "$(git status --porcelain)" ]; then
+            git add -A
+            git commit -m "chore: remove preview for PR #${{ github.event.pull_request.number }}"
+            git push
+          else
+            echo "No changes to commit"
+          fi

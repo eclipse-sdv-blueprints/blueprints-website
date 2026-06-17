@@ -60,10 +60,11 @@ const config = {
   },
 
   // Set the production url of your site here
-  url: 'https://sdv-blueprints.eclipse.dev',
+  // Allow workflow-specific overrides for PR preview deployments.
+  url: process.env.DOCUSAURUS_URL || 'https://sdv-blueprints.eclipse.dev',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/',
+  baseUrl: process.env.DOCUSAURUS_BASE_URL || '/',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
