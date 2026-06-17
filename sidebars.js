@@ -78,6 +78,7 @@ const sidebars = {
               label: 'Bridges',
               items: [
                 'e2e-demo-blueprint/bridge-gamecontroller',
+                'e2e-demo-blueprint/bridge-kuksa-livi',
                 'e2e-demo-blueprint/bridge-mqtt-grpc',
               ]
             },
