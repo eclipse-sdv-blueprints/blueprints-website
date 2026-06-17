@@ -35,6 +35,9 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
+      - name: Create empty docs folder
+        run: mkdir -p docs
+
       - name: Build preview website
         run: yarn build
 
