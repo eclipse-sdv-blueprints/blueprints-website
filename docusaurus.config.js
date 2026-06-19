@@ -26,15 +26,16 @@ function mdxFixHtml(filename, content) {
   return { filename, content: fixed };
 }
 
-/** Fix the removed architecture.drawio.svg reference in fleet-management introduction.
+/** Fix image references in fleet-management introduction to point to remote repository.
  *  Uses HTML <img> with raw GitHub URL to avoid Docusaurus image-processing warnings
  *  on drawio SVGs (they contain embedded XML that Docusaurus can't parse). */
 function fixFleetMgmtImgRef(filename, content) {
   if (!filename.endsWith('.md')) return undefined;
   let fixed = typeof content === 'string' ? content : Buffer.from(content).toString('utf-8');
+  // Convert relative image references to raw GitHub URLs
   fixed = fixed.replace(
-    /!\[([^\]]*)\]\(\.\.\/img\/architecture\.drawio\.svg\)/g,
-    '<img src="https://raw.githubusercontent.com/eclipse-sdv-blueprints/fleet-management/main/img/architecture-zenoh.drawio.svg" alt="$1" />'
+    /!\[([^\]]*)\]\(\.\/img\/([^)]+)\)/g,
+    '<img src="https://raw.githubusercontent.com/eclipse-sdv-blueprints/fleet-management/main/docs/img/$2" alt="$1" />'
   );
   return { filename, content: fixed };
 }
