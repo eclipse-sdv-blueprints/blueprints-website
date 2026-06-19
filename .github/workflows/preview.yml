@@ -19,8 +19,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       PREVIEW_PATH: pr-preview/pr-${{ github.event.pull_request.number }}
-      PREVIEW_URL: https://eclipse-sdv-blueprints.github.io/pr-preview/pr-${{ github.event.pull_request.number }}/
-      DOCUSAURUS_URL: https://eclipse-sdv-blueprints.github.io
+      PREVIEW_URL: https://sdv-blueprints.eclipse.dev/pr-preview/pr-${{ github.event.pull_request.number }}/
+      DOCUSAURUS_URL: https://sdv-blueprints.eclipse.dev
       DOCUSAURUS_BASE_URL: /pr-preview/pr-${{ github.event.pull_request.number }}/
     steps:
       - name: Checkout
