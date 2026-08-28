@@ -244,6 +244,29 @@ const config = {
         ],
         requestConfig: { responseType: "arraybuffer" }
       },
+  ], [
+    "docusaurus-plugin-remote-content",
+      {
+        name: "carmate",
+        sourceBaseUrl: "https://raw.githubusercontent.com/eclipse-sdv-blueprints/carmate/main/docs",
+        outDir: "docs/carmate",
+        documents: [
+          "introduction.md",
+          "architecture.md",
+          "getting-started.md",
+          "components.md",
+        ],
+        requestConfig: { responseType: "arraybuffer" }
+      },
+  ], [
+    "docusaurus-plugin-remote-content",
+      {
+        name: "carmate-img",
+        sourceBaseUrl: "https://raw.githubusercontent.com/eclipse-sdv-blueprints/carmate/main/docs/img",
+        outDir: "docs/carmate/img",
+        documents: ["tech_arch.png"],
+        requestConfig: { responseType: "arraybuffer" }
+      },
   ]],
   presets: [
     [
@@ -310,6 +333,10 @@ const config = {
               {
                 label: 'E2E Demo Blueprint',
                 to: '/docs/e2e-demo-blueprint/introduction',
+              },
+              {
+                label: 'CarMate',
+                to: '/docs/carmate/introduction',
               },
             ],
           },
