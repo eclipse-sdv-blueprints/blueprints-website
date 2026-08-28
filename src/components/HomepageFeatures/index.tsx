@@ -86,6 +86,16 @@ const BlueprintList: BlueprintItem[] = [
     ),
     link: "https://github.com/eclipse-sdv-blueprints/e2e-vehicle-signals",
   },
+  {
+    title: 'CarMate',
+    Svg: require('@site/static/logos/eclipsesdvblueprint_white_title.svg').default,
+    description: (
+      <>
+        An AI-powered in-vehicle companion blueprint combining real-time vehicle telemetry, speech processing, and LLM-driven conversational AI to enhance driver well-being, safety, and interaction.
+      </>
+    ),
+    link: "https://github.com/eclipse-sdv-blueprints/carmate",
+  },
 ];
 
 function Blueprint({ title, Svg, description, link }: BlueprintItem) {
