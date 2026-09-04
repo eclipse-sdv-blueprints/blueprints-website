@@ -64,6 +64,16 @@ const sidebars = {
         },
         {
           type: 'category',
+          label: 'CarMate',
+          link: { type: 'doc', id: 'carmate/introduction'},
+          items: [
+            'carmate/architecture',
+            'carmate/getting-started',
+            'carmate/components',
+          ]
+        },
+        {
+          type: 'category',
           label: 'E2E Demo Blueprint',
           link: { type: 'doc', id: 'e2e-demo-blueprint/introduction'},
           items: [

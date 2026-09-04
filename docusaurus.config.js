@@ -51,6 +51,28 @@ function fixCompanionAppLinks(filename, content) {
   return { filename, content: fixed };
 }
 
+/** Fix image references and Mermaid characters in CarMate docs.
+ *  Rewrites both repo-relative (docs/img/) and file-relative (./img/) image paths
+ *  to raw GitHub URLs so Docusaurus doesn't try to resolve them locally.
+ *  Also replaces middle dot (·) which the Mermaid lexer cannot parse. */
+function fixCarmateContent(filename, content) {
+  if (!filename.endsWith('.md')) return undefined;
+  let fixed = typeof content === 'string' ? content : Buffer.from(content).toString('utf-8');
+  // Rewrite repo-relative image paths: docs/img/<file>
+  fixed = fixed.replace(
+    /!\[([^\]]*)\]\(docs\/img\/([^)]+)\)/g,
+    '<img src="https://raw.githubusercontent.com/eclipse-sdv-blueprints/carmate/main/docs/img/$2" alt="$1" />'
+  );
+  // Rewrite file-relative image paths: ./img/<file>
+  fixed = fixed.replace(
+    /!\[([^\]]*)\]\(\.\/img\/([^)]+)\)/g,
+    '<img src="https://raw.githubusercontent.com/eclipse-sdv-blueprints/carmate/main/docs/img/$2" alt="$1" />'
+  );
+  // Replace middle dot (U+00B7) which the Mermaid lexer cannot handle
+  fixed = fixed.replace(/\u00B7/g, '-');
+  return { filename, content: fixed };
+}
+
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'Eclipse SDV Blueprints',
@@ -244,6 +266,21 @@ const config = {
         ],
         requestConfig: { responseType: "arraybuffer" }
       },
+  ], [
+    "docusaurus-plugin-remote-content",
+      {
+        name: "carmate",
+        sourceBaseUrl: "https://raw.githubusercontent.com/eclipse-sdv-blueprints/carmate/main/docs",
+        outDir: "docs/carmate",
+        documents: [
+          "introduction.md",
+          "architecture.md",
+          "getting-started.md",
+          "components.md",
+        ],
+        requestConfig: { responseType: "arraybuffer" },
+        modifyContent: fixCarmateContent,
+      },
   ]],
   presets: [
     [
@@ -310,6 +347,10 @@ const config = {
               {
                 label: 'E2E Demo Blueprint',
                 to: '/docs/e2e-demo-blueprint/introduction',
+              },
+              {
+                label: 'CarMate',
+                to: '/docs/carmate/introduction',
               },
             ],
           },
