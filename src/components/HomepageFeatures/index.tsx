@@ -96,6 +96,16 @@ const BlueprintList: BlueprintItem[] = [
     ),
     link: "https://github.com/eclipse-sdv-blueprints/carmate",
   },
+  {
+    title: 'Commercial SDV Stack',
+    Svg: require('@site/static/logos/eclipsesdvblueprint_white_title.svg').default,
+    description: (
+      <>
+        A commercial software-defined vehicle (SDV) stack blueprint providing essential components and tools for building and managing SDV applications, ensuring seamless integration and operation within the vehicle ecosystem.
+      </>
+    ),
+    link: "https://github.com/eclipse-sdv-blueprints/commercial-sdv-stack",
+  },
 ];
 
 function Blueprint({ title, Svg, description, link }: BlueprintItem) {

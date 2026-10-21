@@ -74,6 +74,19 @@ const sidebars = {
         },
         {
           type: 'category',
+          label: 'Commercial SDV Stack',
+          link: { type: 'doc', id: 'commercial-sdv-stack/introduction'},
+          items: [
+            'commercial-sdv-stack/architecture',
+            'commercial-sdv-stack/getting-started',
+            'commercial-sdv-stack/api-exploration',
+            'commercial-sdv-stack/ecu-configuration',
+            'commercial-sdv-stack/firmware-update',
+            'commercial-sdv-stack/troubleshooting',
+          ]
+        },
+        {
+          type: 'category',
           label: 'E2E Demo Blueprint',
           link: { type: 'doc', id: 'e2e-demo-blueprint/introduction'},
           items: [

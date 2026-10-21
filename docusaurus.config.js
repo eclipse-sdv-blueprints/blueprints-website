@@ -269,6 +269,23 @@ const config = {
   ], [
     "docusaurus-plugin-remote-content",
       {
+        name: "commercial-sdv-stack",
+        sourceBaseUrl: "https://raw.githubusercontent.com/eclipse-sdv-blueprints/commercial-sdv-stack/main/docs/website",
+        outDir: "docs/commercial-sdv-stack",
+        documents: [
+          "introduction.md",
+          "architecture.md",
+          "getting-started.md",
+          "api-exploration.md",
+          "ecu-configuration.md",
+          "firmware-update.md",
+          "troubleshooting.md",
+        ],
+        requestConfig: { responseType: "arraybuffer" }
+      },
+  ], [
+    "docusaurus-plugin-remote-content",
+      {
         name: "carmate",
         sourceBaseUrl: "https://raw.githubusercontent.com/eclipse-sdv-blueprints/carmate/main/docs",
         outDir: "docs/carmate",
@@ -347,6 +364,10 @@ const config = {
               {
                 label: 'E2E Demo Blueprint',
                 to: '/docs/e2e-demo-blueprint/introduction',
+              },
+              {
+                label: 'Commercial SDV Stack',
+                to: '/docs/commercial-sdv-stack/introduction',
               },
               {
                 label: 'CarMate',
