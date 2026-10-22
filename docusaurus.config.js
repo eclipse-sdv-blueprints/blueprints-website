@@ -1,3 +1,21 @@
+/*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * Assisted-by: GPT-6
+ */
+
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
 
@@ -269,6 +287,23 @@ const config = {
   ], [
     "docusaurus-plugin-remote-content",
       {
+        name: "commercial-sdv-stack",
+        sourceBaseUrl: "https://raw.githubusercontent.com/eclipse-sdv-blueprints/commercial-sdv-stack/main/docs/website",
+        outDir: "docs/commercial-sdv-stack",
+        documents: [
+          "introduction.md",
+          "architecture.md",
+          "getting-started.md",
+          "api-exploration.md",
+          "ecu-configuration.md",
+          "firmware-update.md",
+          "troubleshooting.md",
+        ],
+        requestConfig: { responseType: "arraybuffer" }
+      },
+  ], [
+    "docusaurus-plugin-remote-content",
+      {
         name: "carmate",
         sourceBaseUrl: "https://raw.githubusercontent.com/eclipse-sdv-blueprints/carmate/main/docs",
         outDir: "docs/carmate",
@@ -347,6 +382,10 @@ const config = {
               {
                 label: 'E2E Demo Blueprint',
                 to: '/docs/e2e-demo-blueprint/introduction',
+              },
+              {
+                label: 'Commercial SDV Stack',
+                to: '/docs/commercial-sdv-stack/introduction',
               },
               {
                 label: 'CarMate',

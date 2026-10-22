@@ -1,3 +1,21 @@
+/*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * Assisted-by: GPT-6
+ */
+
 import React from 'react';
 import clsx from 'clsx';
 import styles from './styles.module.css';
@@ -95,6 +113,16 @@ const BlueprintList: BlueprintItem[] = [
       </>
     ),
     link: "https://github.com/eclipse-sdv-blueprints/carmate",
+  },
+  {
+    title: 'Commercial SDV Stack',
+    Svg: require('@site/static/logos/eclipsesdvblueprint_white_title.svg').default,
+    description: (
+      <>
+        A commercial software-defined vehicle (SDV) stack blueprint providing essential components and tools for building and managing SDV applications, ensuring seamless integration and operation within the vehicle ecosystem.
+      </>
+    ),
+    link: "https://github.com/eclipse-sdv-blueprints/commercial-sdv-stack",
   },
 ];
 
