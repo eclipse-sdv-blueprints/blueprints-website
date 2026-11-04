@@ -21,6 +21,7 @@
 
 const lightCodeTheme = require('prism-react-renderer/themes/github');
 const darkCodeTheme = require('prism-react-renderer/themes/dracula');
+const path = require('path');
 
 /** Make HTML in markdown files compatible with MDX (JSX) parsing. */
 function mdxFixHtml(filename, content) {
@@ -89,6 +90,52 @@ function fixCarmateContent(filename, content) {
   // Replace middle dot (U+00B7) which the Mermaid lexer cannot handle
   fixed = fixed.replace(/\u00B7/g, '-');
   return { filename, content: fixed };
+}
+
+/** Directories of the scenario-orchestration repo whose README.md is pulled into the website
+ *  (one remote-content plugin per directory, like service-to-signal). */
+const SCENARIO_ORCHESTRATION_DIRS = [
+  "",
+  "resource-isolation",
+  "resource-isolation/single_node/test_script",
+  "resource-isolation/single_node/serial-bridge/serial",
+  "resource-isolation/single_node/kuksa-bridge",
+  "resource-isolation/single_node/led-normal-controller",
+  "resource-isolation/single_node/led-timpani-controller",
+  "resource-isolation/single_node/monitoring",
+  "resource-isolation/multi_node/test_script",
+  "resource-isolation/multi_node/nuc_master",
+  "resource-isolation/multi_node/nuc_master/arduino",
+  "resource-isolation/multi_node/nuc_master/serial-bridge/serial",
+  "resource-isolation/multi_node/nuc_guest",
+  "resource-isolation/multi_node/nuc_guest/arduino",
+  "resource-isolation/multi_node/nuc_guest/kuksa-bridge",
+  "resource-isolation/multi_node/nuc_guest/led-normal-controller",
+  "resource-isolation/multi_node/nuc_guest/led-timpani-controller",
+  "resource-isolation/multi_node/nuc_guest/monitoring",
+];
+
+/** Markdown files of the scenario-orchestration repo that exist on the website. */
+const SCENARIO_ORCHESTRATION_DOCS = new Set([
+  ...SCENARIO_ORCHESTRATION_DIRS.map((dir) => (dir ? `${dir}/README.md` : "README.md")),
+  "resource-isolation/Introduction.md",
+]);
+
+/** Rewrite relative links in scenario-orchestration docs.
+ *  Links to markdown files that are part of the website stay relative; all other
+ *  relative links (folders, .env, udev rules, YAML, LICENSE, ...) point to GitHub. */
+function fixScenarioOrchestrationLinks(dir) {
+  return (filename, content) => {
+    if (!filename.endsWith('.md')) return undefined;
+    let fixed = typeof content === 'string' ? content : Buffer.from(content).toString('utf-8');
+    fixed = fixed.replace(/\]\((?!https?:|#|mailto:)([^)\s#]+)(#[^)]*)?\)/g, (match, target, anchor = '') => {
+      const resolved = path.posix.normalize(path.posix.join(dir, target)).replace(/\/$/, '');
+      if (SCENARIO_ORCHESTRATION_DOCS.has(resolved)) return match;
+      const kind = path.posix.extname(resolved) ? 'blob' : 'tree';
+      return `](https://github.com/eclipse-sdv-blueprints/scenario-orchestration/${kind}/main/${resolved}${anchor})`;
+    });
+    return { filename, content: fixed };
+  };
 }
 
 /** @type {import('@docusaurus/types').Config} */
@@ -316,7 +363,28 @@ const config = {
         requestConfig: { responseType: "arraybuffer" },
         modifyContent: fixCarmateContent,
       },
-  ]],
+  ], [
+    "docusaurus-plugin-remote-content",
+      {
+        name: "scenario-orchestration-introduction",
+        sourceBaseUrl: "https://raw.githubusercontent.com/eclipse-sdv-blueprints/scenario-orchestration/main/resource-isolation",
+        outDir: "docs/scenario-orchestration/resource-isolation",
+        documents: ["Introduction.md"],
+        requestConfig: { responseType: "arraybuffer" },
+        modifyContent: fixScenarioOrchestrationLinks("resource-isolation"),
+      },
+  ],
+  ...SCENARIO_ORCHESTRATION_DIRS.map((dir) => [
+    "docusaurus-plugin-remote-content",
+      {
+        name: dir ? `scenario-orchestration-${dir.replace(/[\/_]/g, '-')}` : "scenario-orchestration",
+        sourceBaseUrl: `https://raw.githubusercontent.com/eclipse-sdv-blueprints/scenario-orchestration/main${dir ? `/${dir}` : ''}`,
+        outDir: `docs/scenario-orchestration${dir ? `/${dir}` : ''}`,
+        documents: ["README.md"],
+        requestConfig: { responseType: "arraybuffer" },
+        modifyContent: fixScenarioOrchestrationLinks(dir),
+      },
+  ])],
   presets: [
     [
       'classic',
@@ -390,6 +458,10 @@ const config = {
               {
                 label: 'CarMate',
                 to: '/docs/carmate/introduction',
+              },
+              {
+                label: 'Scenario Orchestration',
+                to: '/docs/scenario-orchestration/',
               },
             ],
           },

@@ -92,6 +92,61 @@ const sidebars = {
         },
         {
           type: 'category',
+          label: 'Scenario Orchestration',
+          link: { type: 'doc', id: 'scenario-orchestration/README'},
+          items: [
+            {
+              type: 'category',
+              label: 'Resource Isolation',
+              link: { type: 'doc', id: 'scenario-orchestration/resource-isolation/README'},
+              items: [
+                'scenario-orchestration/resource-isolation/Introduction',
+                {
+                  type: 'category',
+                  label: 'Single Node',
+                  items: [
+                    'scenario-orchestration/resource-isolation/single_node/test_script/README',
+                    'scenario-orchestration/resource-isolation/single_node/serial-bridge/serial/README',
+                    'scenario-orchestration/resource-isolation/single_node/kuksa-bridge/README',
+                    'scenario-orchestration/resource-isolation/single_node/led-normal-controller/README',
+                    'scenario-orchestration/resource-isolation/single_node/led-timpani-controller/README',
+                    'scenario-orchestration/resource-isolation/single_node/monitoring/README',
+                  ]
+                },
+                {
+                  type: 'category',
+                  label: 'Multi Node',
+                  items: [
+                    'scenario-orchestration/resource-isolation/multi_node/test_script/README',
+                    {
+                      type: 'category',
+                      label: 'NUC Master',
+                      link: { type: 'doc', id: 'scenario-orchestration/resource-isolation/multi_node/nuc_master/README'},
+                      items: [
+                        'scenario-orchestration/resource-isolation/multi_node/nuc_master/arduino/README',
+                        'scenario-orchestration/resource-isolation/multi_node/nuc_master/serial-bridge/serial/README',
+                      ]
+                    },
+                    {
+                      type: 'category',
+                      label: 'NUC Guest',
+                      link: { type: 'doc', id: 'scenario-orchestration/resource-isolation/multi_node/nuc_guest/README'},
+                      items: [
+                        'scenario-orchestration/resource-isolation/multi_node/nuc_guest/arduino/README',
+                        'scenario-orchestration/resource-isolation/multi_node/nuc_guest/kuksa-bridge/README',
+                        'scenario-orchestration/resource-isolation/multi_node/nuc_guest/led-normal-controller/README',
+                        'scenario-orchestration/resource-isolation/multi_node/nuc_guest/led-timpani-controller/README',
+                        'scenario-orchestration/resource-isolation/multi_node/nuc_guest/monitoring/README',
+                      ]
+                    },
+                  ]
+                },
+              ]
+            },
+          ]
+        },
+        {
+          type: 'category',
           label: 'Commercial SDV Stack',
           link: { type: 'doc', id: 'commercial-sdv-stack/introduction'},
           items: [
