@@ -115,6 +115,16 @@ const BlueprintList: BlueprintItem[] = [
     link: "https://github.com/eclipse-sdv-blueprints/carmate",
   },
   {
+    title: 'Scenario Orchestration',
+    Svg: require('@site/static/logos/eclipsesdvblueprint_white_title.svg').default,
+    description: (
+      <>
+        Orchestrates whole vehicle scenarios across multiple nodes with Eclipse Pullpiri, Eclipse Timpani and Eclipse Kuksa, driven by VSS signals. A hardware demo shows time-triggered workloads keeping deterministic timing under CPU load where conventional workloads drift.
+      </>
+    ),
+    link: "https://github.com/eclipse-sdv-blueprints/scenario-orchestration",
+  },
+  {
     title: 'Commercial SDV Stack',
     Svg: require('@site/static/logos/eclipsesdvblueprint_white_title.svg').default,
     description: (
