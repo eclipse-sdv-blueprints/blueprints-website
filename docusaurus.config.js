@@ -92,6 +92,36 @@ function fixCarmateContent(filename, content) {
   return { filename, content: fixed };
 }
 
+/** Directories of the commercial-sdv-stack repo whose README.md is pulled into the website. */
+const COMMERCIAL_SDV_STACK_DIRS = ["", "ecu-sim", "odx", "uservices"];
+
+/** Rewrite relative links and images in commercial-sdv-stack READMEs.
+ *  Links to folders/READMEs that are part of the website point to the website page;
+ *  all other relative links (compose file, scripts, config, ...) point to GitHub.
+ *  Images use raw GitHub URLs (drawio SVGs can't be processed by Docusaurus). */
+function fixCommercialSdvStackContent(dir) {
+  const repo = 'eclipse-sdv-blueprints/commercial-sdv-stack';
+  return (filename, content) => {
+    if (!filename.endsWith('.md')) return undefined;
+    let fixed = typeof content === 'string' ? content : Buffer.from(content).toString('utf-8');
+    fixed = fixed.replace(/!\[([^\]]*)\]\((?!https?:)([^)\s]+)\)/g, (match, alt, target) => {
+      const resolved = path.posix.normalize(path.posix.join(dir, target));
+      return `<img src="https://raw.githubusercontent.com/${repo}/main/${resolved}" alt="${alt}" />`;
+    });
+    fixed = fixed.replace(/\]\((?!https?:|#|mailto:)([^)\s#]+)(#[^)]*)?\)/g, (match, target, anchor = '') => {
+      const resolved = path.posix.normalize(path.posix.join(dir, target)).replace(/\/+$/, '');
+      const docDir = resolved.endsWith('README.md') ? path.posix.dirname(resolved) : resolved;
+      if (COMMERCIAL_SDV_STACK_DIRS.includes(docDir === '.' ? '' : docDir)) {
+        const rel = path.posix.relative(dir, path.posix.join(docDir, 'README.md'));
+        return `](${rel.startsWith('.') ? rel : `./${rel}`}${anchor})`;
+      }
+      const kind = path.posix.extname(resolved) ? 'blob' : 'tree';
+      return `](https://github.com/${repo}/${kind}/main/${resolved}${anchor})`;
+    });
+    return { filename, content: fixed };
+  };
+}
+
 /** Directories of the scenario-orchestration repo whose README.md is pulled into the website
  *  (one remote-content plugin per directory, like service-to-signal). */
 const SCENARIO_ORCHESTRATION_DIRS = [
@@ -331,24 +361,18 @@ const config = {
         ],
         requestConfig: { responseType: "arraybuffer" }
       },
-  ], [
+  ],
+  ...COMMERCIAL_SDV_STACK_DIRS.map((dir) => [
     "docusaurus-plugin-remote-content",
       {
-        name: "commercial-sdv-stack",
-        sourceBaseUrl: "https://raw.githubusercontent.com/eclipse-sdv-blueprints/commercial-sdv-stack/main/docs/website",
-        outDir: "docs/commercial-sdv-stack",
-        documents: [
-          "introduction.md",
-          "architecture.md",
-          "getting-started.md",
-          "api-exploration.md",
-          "ecu-configuration.md",
-          "firmware-update.md",
-          "troubleshooting.md",
-        ],
-        requestConfig: { responseType: "arraybuffer" }
+        name: dir ? `commercial-sdv-stack-${dir}` : "commercial-sdv-stack",
+        sourceBaseUrl: `https://raw.githubusercontent.com/eclipse-sdv-blueprints/commercial-sdv-stack/main${dir ? `/${dir}` : ''}`,
+        outDir: `docs/commercial-sdv-stack${dir ? `/${dir}` : ''}`,
+        documents: ["README.md"],
+        requestConfig: { responseType: "arraybuffer" },
+        modifyContent: fixCommercialSdvStackContent(dir),
       },
-  ], [
+  ]), [
     "docusaurus-plugin-remote-content",
       {
         name: "carmate",
@@ -453,7 +477,7 @@ const config = {
               },
               {
                 label: 'Commercial SDV Stack',
-                to: '/docs/commercial-sdv-stack/introduction',
+                to: '/docs/commercial-sdv-stack/',
               },
               {
                 label: 'CarMate',

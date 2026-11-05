@@ -148,14 +148,11 @@ const sidebars = {
         {
           type: 'category',
           label: 'Commercial SDV Stack',
-          link: { type: 'doc', id: 'commercial-sdv-stack/introduction'},
+          link: { type: 'doc', id: 'commercial-sdv-stack/README'},
           items: [
-            'commercial-sdv-stack/architecture',
-            'commercial-sdv-stack/getting-started',
-            'commercial-sdv-stack/api-exploration',
-            'commercial-sdv-stack/ecu-configuration',
-            'commercial-sdv-stack/firmware-update',
-            'commercial-sdv-stack/troubleshooting',
+            'commercial-sdv-stack/ecu-sim/README',
+            'commercial-sdv-stack/odx/README',
+            'commercial-sdv-stack/uservices/README',
           ]
         },
         {
